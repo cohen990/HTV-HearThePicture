@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using NUnit.Framework;
 using System.Drawing;
 using System.Linq;
+using HearThePicture.Services;
 
 namespace HearThePicture.Tests.Services
 {
@@ -100,43 +100,6 @@ namespace HearThePicture.Tests.Services
 			var result = Loader.GetPixels(image);
 
 			Assert.That(result.First().R, Is.EqualTo(255));
-		}
-	}
-
-	internal class BitmapLoader
-	{
-		public FileStream Load(string filePath)
-		{
-			if (string.IsNullOrWhiteSpace(filePath))
-			{
-				throw new ArgumentException("You must provide a filePath", "filePath");
-			}
-
-			FileStream file = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-
-			return file;
-		}
-
-		public Bitmap GetBitmap(FileStream stream)
-		{
-			if (stream == null)
-				return null;
-
-			Image image = Image.FromStream(stream);
-
-			Bitmap bitmap = new Bitmap(image);
-
-			return bitmap;
-		}
-
-		public List<Color> GetPixels(Bitmap image)
-		{
-			if(image == null)
-				return new List<Color>();
-
-			var pixel = image.GetPixel(0, 0);
-
-			return new List<Color> {pixel};
 		}
 	}
 }
