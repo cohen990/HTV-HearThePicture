@@ -81,5 +81,19 @@ namespace HearThePicture.Tests.Services
 
 			Assert.DoesNotThrow(() => player.Play());
 		}
+
+		[Test]
+		public void CrossFades()
+		{
+			var tones = new List<Tone> { new Tone { Frequency = 680.0 }, new Tone { Frequency = 230.0 } };
+
+			Wav.Create(tones, FileName);
+
+			var stream = File.Open(FileName, FileMode.Open, FileAccess.Read, FileShare.Delete);
+
+			var player = new SoundPlayer(stream);
+
+			Assert.DoesNotThrow(() => player.Play());
+		}
 	}
 }
