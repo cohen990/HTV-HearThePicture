@@ -36,9 +36,17 @@ namespace HearThePicture.Services
 			if(image == null)
 				return new List<Color>();
 
-			var pixel = image.GetPixel(0, 0);
+			var pixels = new List<Color>();
 
-			return new List<Color> {pixel};
+			for (int x = 0; x < image.Width; x++)
+			{
+				for (int y = 0; y < image.Height; y++)
+				{
+					pixels.Add(image.GetPixel(x, y));
+				}
+			}
+
+			return pixels;
 		}
 	}
 }

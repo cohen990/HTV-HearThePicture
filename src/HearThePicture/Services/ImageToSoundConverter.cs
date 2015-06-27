@@ -13,12 +13,12 @@ namespace HearThePicture.Services
 
 			var analyzer = new PixelAnalyzer();
 
-			double frequency = analyzer.GetFrequency(pixels.First());
+			var frequencies = pixels.Select(analyzer.GetFrequency);
 
 			var wavService = new WavService();
 
 			string fileName = "red.wav";
-			wavService.Play(frequency);
+			wavService.Play(frequencies.First());
 		}
 	}
 }

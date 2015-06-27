@@ -72,7 +72,7 @@ namespace HearThePicture.Tests.Services
 	}
 
 	[TestFixture]
-	internal class GetPixelstests : BitmapLoaderTests
+	internal class GetPixelsTests : BitmapLoaderTests
 	{
 		[Test]
 		public void GivenNull_ReturnsEmptyList()
@@ -100,6 +100,26 @@ namespace HearThePicture.Tests.Services
 			var result = Loader.GetPixels(image);
 
 			Assert.That(result.First().R, Is.EqualTo(255));
+		}
+
+		[Test]
+		public void GivenBitmapOfTwoGreenPixels_Gets2Pixels()
+		{
+			var image = new Bitmap(Image.FromFile("Assets/2x1Green.bmp"));
+
+			var result = Loader.GetPixels(image);
+
+			Assert.That(result.Count, Is.EqualTo(2));
+		}
+
+		[Test]
+		public void GivenBitmapOf4PurplePixels_Gets4Pixels()
+		{
+			var image = new Bitmap(Image.FromFile("Assets/2x2Purple.bmp"));
+
+			var result = Loader.GetPixels(image);
+
+			Assert.That(result.Count, Is.EqualTo(4));
 		}
 	}
 }
