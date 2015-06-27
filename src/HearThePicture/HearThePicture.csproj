@@ -169,8 +169,10 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BitmapLoader.cs" />
+    <Compile Include="Services\ImageToSoundConverter.cs" />
     <Compile Include="Services\NoiseMaker.cs" />
     <Compile Include="Services\PixelAnalyzer.cs" />
+    <Compile Include="Services\WavService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
