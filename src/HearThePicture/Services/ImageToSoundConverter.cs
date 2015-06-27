@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using HearThePicture.Models;
 
 namespace HearThePicture.Services
 {
@@ -13,11 +15,11 @@ namespace HearThePicture.Services
 
 			var analyzer = new PixelAnalyzer();
 
-			var frequencies = pixels.Select(analyzer.GetFrequency).Take(1000).ToList();
+			List<Tone> tones = pixels.Select(analyzer.GetTone).Take(1000).ToList();
 
 			var wavService = new WavService();
 
-			wavService.Play(frequencies, samplesPerPixel);
+			wavService.Play(tones, samplesPerPixel);
 		}
 	}
 }

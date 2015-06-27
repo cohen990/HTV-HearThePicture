@@ -5,74 +5,103 @@ namespace HearThePicture.Controllers
 {
 	public class HomeController : Controller
 	{
+		private ImageToSoundConverter _converter;
+
 		public ActionResult Index()
 		{
-			var converter = new ImageToSoundConverter();
+			_converter = new ImageToSoundConverter();
 
-			converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\Blue.bmp");
+			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\Blue.bmp");
 
 			return View();
 		}
 
 		public ActionResult Blue()
 		{
-			var converter = new ImageToSoundConverter();
+			_converter = new ImageToSoundConverter();
 
-			converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\Blue.bmp");
+			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\Blue.bmp");
 
 			return View();
 		}
 
 		public ActionResult Red()
 		{
-			var converter = new ImageToSoundConverter();
+			_converter = new ImageToSoundConverter();
 
-			converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\SinglePixel.bmp");
+			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\SinglePixel.bmp");
 
 			return View();
 		}
 
 		public ActionResult TwoxOneGreen()
 		{
-			var converter = new ImageToSoundConverter();
+			_converter = new ImageToSoundConverter();
 
-			converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\2x1Green.bmp");
+			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\2x1Green.bmp");
 
 			return View();
 		}
 
 		public ActionResult TwoxTwoPurple()
 		{
-			var converter = new ImageToSoundConverter();
+			_converter = new ImageToSoundConverter();
 
-			converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\2x2Purple.bmp");
+			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\2x2Purple.bmp");
 
 			return View();
 		}
 
 		public ActionResult Windows()
 		{
-			var converter = new ImageToSoundConverter();
+			_converter = new ImageToSoundConverter();
 
-			converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\windows.bmp");
+			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\windows.bmp");
 
 			return View("Index");
 		}
 
 		public ActionResult Psychadelic()
 		{
-			var converter = new ImageToSoundConverter();
+			_converter = new ImageToSoundConverter();
 
-			converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\psychadelic.bmp", 11025);
+			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\psychadelic.bmp", 11025);
 
 			return View();
 		}
 
 		public ActionResult Scream()
 		{
-			var converter = new ImageToSoundConverter();
+			_converter = new ImageToSoundConverter();
 
-			converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\scream.jpg", 11025);
+			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\scream.jpg", 11025);
+
+			return View();
+		}
+
+		public ActionResult Whitenoise()
+		{
+			_converter = new ImageToSoundConverter();
+
+			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\whitenoise.jpg", 11025);
+
+			return View();
+		}
+
+		public ActionResult StarryNight()
+		{
+			_converter = new ImageToSoundConverter();
+
+			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\starrynight.jpg", 11025);
+
+			return View();
+		}
+
+		public ActionResult Sunflower()
+		{
+			_converter = new ImageToSoundConverter();
+
+			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\sunflower.jpg", 11025);
 
 			return View();
 		}
