@@ -14,7 +14,7 @@ namespace HearThePicture.Tests.Services
 		{
 			var bitmap = (Bitmap)null;
 
-			var result = bitmap.DownSample();
+			var result = bitmap.RGBADownSample();
 
 			Assert.That(result, Is.Null);
 		}
@@ -24,7 +24,7 @@ namespace HearThePicture.Tests.Services
 		{
 			var bitmap = new Bitmap(1, 1);
 
-			var result = bitmap.DownSample();
+			var result = bitmap.RGBADownSample();
 
 			Assert.That(result.Width, Is.EqualTo(1));
 			Assert.That(result.Height, Is.EqualTo(1));
@@ -37,7 +37,7 @@ namespace HearThePicture.Tests.Services
 
 			bitmap.SetPixel(0,0, Color.FromArgb(128, 255, 255, 255));
 
-			var result = bitmap.DownSample();
+			var result = bitmap.RGBADownSample();
 
 			Assert.That(result.GetPixel(0, 0).A, Is.EqualTo(bitmap.GetPixel(0, 0).A));
 		}
@@ -47,7 +47,7 @@ namespace HearThePicture.Tests.Services
 		{
 			var bitmap = new Bitmap(2, 2);
 
-			var result = bitmap.DownSample();
+			var result = bitmap.RGBADownSample();
 
 			Assert.That(result.Width, Is.EqualTo(1));
 			Assert.That(result.Height, Is.EqualTo(1));
@@ -63,7 +63,7 @@ namespace HearThePicture.Tests.Services
 			bitmap.SetPixel(1, 0, Color.FromArgb(127, 255, 255, 255));
 			bitmap.SetPixel(1, 1, Color.FromArgb(191, 255, 255, 255));
 
-			var result = bitmap.DownSample();
+			var result = bitmap.RGBADownSample();
 
 			Assert.That(result.GetPixel(0, 0).A, Is.EqualTo(95));
 		}
@@ -73,7 +73,7 @@ namespace HearThePicture.Tests.Services
 		{
 			var bitmap = new Bitmap(2, 1);
 
-			var result = bitmap.DownSample();
+			var result = bitmap.RGBADownSample();
 
 			Assert.That(result.Width, Is.EqualTo(1));
 			Assert.That(result.Height, Is.EqualTo(1));
@@ -84,7 +84,7 @@ namespace HearThePicture.Tests.Services
 		{
 			var bitmap = new Bitmap(3, 3);
 
-			var result = bitmap.DownSample();
+			var result = bitmap.RGBADownSample();
 
 			Assert.That(result.Width, Is.EqualTo(1));
 			Assert.That(result.Height, Is.EqualTo(1));
@@ -93,7 +93,7 @@ namespace HearThePicture.Tests.Services
 
 	public static class BitmapExtensions
 	{
-		public static Bitmap DownSample(this Bitmap bitmap)
+		public static Bitmap RGBADownSample(this Bitmap bitmap)
 		{
 			if (bitmap == null)
 				return null;

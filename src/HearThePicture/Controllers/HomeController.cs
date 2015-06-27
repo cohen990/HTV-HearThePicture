@@ -94,6 +94,13 @@ namespace HearThePicture.Controllers
 			return View();
 		}
 
+		public ActionResult StarryNightNoSynth()
+		{
+			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\starrynightsmall.jpg", 11025, false);
+
+			return View();
+		}
+
 		public ActionResult Sunflower()
 		{
 			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\sunflower.jpg", 11025);
