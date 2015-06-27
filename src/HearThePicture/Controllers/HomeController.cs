@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using HearThePicture.Services;
 
 namespace HearThePicture.Controllers
 {
@@ -10,19 +11,9 @@ namespace HearThePicture.Controllers
 	{
 		public ActionResult Index()
 		{
-			return View();
-		}
+			var converter = new ImageToSoundConverter();
 
-		public ActionResult About()
-		{
-			ViewBag.Message = "Your application description page.";
-
-			return View();
-		}
-
-		public ActionResult Contact()
-		{
-			ViewBag.Message = "Your contact page.";
+			converter.Convert("Assets/OneRedPixel.bmp");
 
 			return View();
 		}
