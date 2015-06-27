@@ -49,7 +49,21 @@ namespace HearThePicture.Controllers
 		{
 			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\windows.bmp");
 
-			return View("Index");
+			return View();
+		}
+
+		public ActionResult Row()
+		{
+			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\row.png");
+
+			return View();
+		}
+
+		public ActionResult Gradient()
+		{
+			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\gradient.bmp", 2756);
+
+			return View();
 		}
 
 		public ActionResult Psychadelic()
@@ -75,7 +89,7 @@ namespace HearThePicture.Controllers
 
 		public ActionResult StarryNight()
 		{
-			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\starrynight.jpg", 11025);
+			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\starrynightsmall.jpg", 11025);
 
 			return View();
 		}
@@ -83,6 +97,20 @@ namespace HearThePicture.Controllers
 		public ActionResult Sunflower()
 		{
 			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\sunflower.jpg", 11025);
+
+			return View();
+		}
+
+		public ActionResult DogFace()
+		{
+			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\DogFace.png", 11025);
+
+			return View();
+		}
+
+		public ActionResult Pillars()
+		{
+			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\pillars-small.png", 11025);
 
 			return View();
 		}

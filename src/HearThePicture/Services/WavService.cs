@@ -60,25 +60,26 @@ namespace HearThePicture.Services
 			writer.Write(bitsPerSample);
 			writer.Write(data);
 			writer.Write(dataChunkSize);
-			double amplitude = 10000;
+			double baseAmplitude = 10000;
 
 			for (int i = 0; i < tones.Count; i++)
 			{
 				var samplesForThisTone = baseSamplesPerPixel*tones[i].Duration;
+				var amplitude = baseAmplitude*tones[i].Volume;
 
-				var fivePercentOfSamples = samplesForThisTone/20;
+				var fadePeriod = samplesForThisTone/15;
 
 				int j = 0;
 
-				for (; j < fivePercentOfSamples; j++)
+				for (; j < fadePeriod; j++)
 				{
-					var fadeAmplitude = j / fivePercentOfSamples * amplitude;
+					var fadeAmplitude = j / fadePeriod * amplitude;
 					double t = (double)j / (double)samplesPerSecond;
 					short s = (short)(fadeAmplitude * (Math.Sin(t * tones[i].Frequency * 2.0 * Math.PI)));
 					writer.Write(s);
 				}
 
-				for (; j <= samplesForThisTone - fivePercentOfSamples; j++)
+				for (; j <= samplesForThisTone - fadePeriod; j++)
 				{
 					double t = (double)j / (double)samplesPerSecond;
 					short s = (short)(amplitude * (Math.Sin(t * tones[i].Frequency * 2.0 * Math.PI)));
@@ -87,7 +88,7 @@ namespace HearThePicture.Services
 
 				for (; j < samplesForThisTone; j++)
 				{
-					var fadeAmplitude = ((samplesForThisTone - j) / fivePercentOfSamples) * amplitude;
+					var fadeAmplitude = ((samplesForThisTone - j) / fadePeriod) * amplitude;
 					double t = (double)j / (double)samplesPerSecond;
 					short s = (short)(fadeAmplitude * (Math.Sin(t * tones[i].Frequency * 2.0 * Math.PI)));
 					writer.Write(s);

@@ -13,11 +13,13 @@ namespace HearThePicture.Services
 		{
 			float hue = pixel.GetHue();
 			float brightness = pixel.GetBrightness();
+			float saturation = pixel.GetSaturation();
 
 			var frequency = ConvertToFrequency(hue);
 			var duration = ConvertToDuration(brightness);
+			var volume = ConvertToVolume(saturation);
 
-			return new Tone {Frequency = frequency, Duration = duration};
+			return new Tone {Frequency = frequency, Duration = duration, Volume = volume};
 		}
 
 		public double ConvertToDuration(float brightness)
@@ -42,6 +44,13 @@ namespace HearThePicture.Services
 			double frequency = Math.Pow(10, logOfFrequency);
 
 			return frequency;
+		}
+
+		public double ConvertToVolume(float saturation)
+		{
+			var volume = saturation*(Tone.MaximumVolume - Tone.MinimumVolume) + Tone.MinimumVolume;
+
+			return volume;
 		}
 	}
 }

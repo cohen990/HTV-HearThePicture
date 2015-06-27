@@ -183,7 +183,25 @@
     <Content Include="Assets\Blue.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\dogface.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\gradient.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\gradient.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\pillars-small.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\pillars.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\psychadelic.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\row.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\scream.jpg" />
@@ -191,6 +209,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\starrynight.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\starrynightsmall.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\sunflower.jpg">
@@ -246,6 +267,11 @@
     <Content Include="Views\Home\Whitenoise.cshtml" />
     <Content Include="Views\Home\Starrynight.cshtml" />
     <Content Include="Views\Home\Sunflower.cshtml" />
+    <Content Include="Views\Home\Windows.cshtml" />
+    <Content Include="Views\Home\Row.cshtml" />
+    <Content Include="Views\Home\Gradient.cshtml" />
+    <Content Include="Views\Home\DogFace.cshtml" />
+    <Content Include="Views\Home\Pillars.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
