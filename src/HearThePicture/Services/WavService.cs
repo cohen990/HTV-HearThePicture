@@ -8,13 +8,11 @@ namespace HearThePicture.Services
 {
 	public class WavService
 	{
-		public void Play(double frequency)
+		public void Play(List<double> frequencies, int samplesPerPixel)
 		{
 			var outFileName = Guid.NewGuid().ToString("N").Substring(5);
 
-			var frequencies = new List<double> {frequency};
-
-			Create(frequencies, outFileName + ".wav");
+			Create(frequencies, outFileName + ".wav", samplesPerPixel);
 
 			var filePath = string.Format("C:\\Program Files (x86)\\IIS Express\\{0}.wav", outFileName);
 
@@ -27,7 +25,7 @@ namespace HearThePicture.Services
 			player.Play();
 		}
 
-		public FileStream Create(List<double> frequencies, string fileName)
+		public FileStream Create(List<double> frequencies, string fileName, int samplesPerPixel = 88200)
 		{
 			FileStream stream = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
 			BinaryWriter writer = new BinaryWriter(stream);
@@ -44,7 +42,7 @@ namespace HearThePicture.Services
 			int bytesPerSecond = samplesPerSecond * frameSize;
 			int waveSize = 4;
 			int data = 0x61746164;
-			int samples = 88200 * 4;
+			int samples = samplesPerPixel * frequencies.Count;
 			int dataChunkSize = samples * frameSize;
 			int fileSize = waveSize + headerSize + formatChunkSize + headerSize + dataChunkSize;
 			writer.Write(RIFF);
@@ -60,37 +58,16 @@ namespace HearThePicture.Services
 			writer.Write(bitsPerSample);
 			writer.Write(data);
 			writer.Write(dataChunkSize);
-			double aNatural = frequencies.First();
 			double ampl = 10000;
-			double perfect = 1.5;
-			double concert = 1.498307077;
-			double freq = aNatural * perfect;
-			for (int i = 0; i < samples / 4; i++)
+			for (int i = 0; i < frequencies.Count; i++)
 			{
-				double t = (double)i /  (double)samplesPerSecond;
-				short s = (short)(ampl * (Math.Sin(t * freq * 2.0 * Math.PI)));
-				writer.Write(s);
+				for (int j = 0; j < samples / frequencies.Count; j++)
+				{
+					double t = (double)j / (double)samplesPerSecond;
+					short s = (short)(ampl * (Math.Sin(t * frequencies[i] * 2.0 * Math.PI)));
+					writer.Write(s);
+				}
 			}
-			freq = aNatural * concert;
-			for (int i = 0; i < samples / 4; i++)
-			{
-				double t = (double)i / (double)samplesPerSecond;
-				short s = (short)(ampl * (Math.Sin(t * freq * 2.0 * Math.PI)));
-				writer.Write(s);
-			}
-			for (int i = 0; i < samples / 4; i++)
-			{
-				double t = (double)i / (double)samplesPerSecond;
-				short s = (short)(ampl * (Math.Sin(t * freq * 2.0 * Math.PI) + Math.Sin(t * freq * perfect * 2.0 * Math.PI)));
-				writer.Write(s);
-			}
-			for (int i = 0; i < samples / 4; i++)
-			{
-				double t = (double)i / (double)samplesPerSecond;
-				short s = (short)(ampl * (Math.Sin(t * freq * 2.0 * Math.PI) + Math.Sin(t * freq * concert * 2.0 * Math.PI)));
-				writer.Write(s);
-			}
-
 			writer.Close();
 			stream.Close();
 

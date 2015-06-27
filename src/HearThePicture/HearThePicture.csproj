@@ -182,7 +182,14 @@
     <Content Include="Assets\Blue.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\psychadelic.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\scream.jpg" />
     <Content Include="Assets\SinglePixel.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\windows.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\bootstrap.css" />
@@ -223,6 +230,9 @@
     <Content Include="Views\Home\Blue.cshtml" />
     <Content Include="Views\Home\Red.cshtml" />
     <Content Include="Views\Home\TwoxOneGreen.cshtml" />
+    <Content Include="Views\Home\TwoxTwoPurple.cshtml" />
+    <Content Include="Views\Home\Psychadelic.cshtml" />
+    <Content Include="Views\Home\Scream.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
