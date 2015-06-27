@@ -60,16 +60,36 @@ namespace HearThePicture.Services
 			writer.Write(bitsPerSample);
 			writer.Write(data);
 			writer.Write(dataChunkSize);
-			double ampl = 10000;
+			double amplitude = 10000;
 
 			for (int i = 0; i < tones.Count; i++)
 			{
 				var samplesForThisTone = baseSamplesPerPixel*tones[i].Duration;
 
-				for (int j = 0; j <= samplesForThisTone; j++)
+				var fivePercentOfSamples = samplesForThisTone/20;
+
+				int j = 0;
+
+				for (; j < fivePercentOfSamples; j++)
+				{
+					var fadeAmplitude = j / fivePercentOfSamples * amplitude;
+					double t = (double)j / (double)samplesPerSecond;
+					short s = (short)(fadeAmplitude * (Math.Sin(t * tones[i].Frequency * 2.0 * Math.PI)));
+					writer.Write(s);
+				}
+
+				for (; j <= samplesForThisTone - fivePercentOfSamples; j++)
 				{
 					double t = (double)j / (double)samplesPerSecond;
-					short s = (short)(ampl * (Math.Sin(t * tones[i].Frequency * 2.0 * Math.PI)));
+					short s = (short)(amplitude * (Math.Sin(t * tones[i].Frequency * 2.0 * Math.PI)));
+					writer.Write(s);
+				}
+
+				for (; j < samplesForThisTone; j++)
+				{
+					var fadeAmplitude = ((samplesForThisTone - j) / fivePercentOfSamples) * amplitude;
+					double t = (double)j / (double)samplesPerSecond;
+					short s = (short)(fadeAmplitude * (Math.Sin(t * tones[i].Frequency * 2.0 * Math.PI)));
 					writer.Write(s);
 				}
 			}
