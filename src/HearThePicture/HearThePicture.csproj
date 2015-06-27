@@ -193,6 +193,9 @@
     <Content Include="Assets\starrynight.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\sunflower.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\whitenoise.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -242,6 +245,7 @@
     <Content Include="Views\Home\Scream.cshtml" />
     <Content Include="Views\Home\Whitenoise.cshtml" />
     <Content Include="Views\Home\Starrynight.cshtml" />
+    <Content Include="Views\Home\Sunflower.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
