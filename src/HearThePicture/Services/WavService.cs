@@ -1,11 +1,21 @@
 using System;
 using System.IO;
+using System.Media;
 
 namespace HearThePicture.Services
 {
 	public class WavService
 	{
-		public void Write(double frequency, string fileName)
+		public void Play(double frequency)
+		{
+			var stream = File.Open("C:\\Program Files (x86)\\IIS Express\\filename.wav", FileMode.Open);
+
+			var player = new SoundPlayer(stream);
+
+			player.Play();
+		}
+
+		public FileStream Create(double frequency, string fileName)
 		{
 			FileStream stream = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
 			BinaryWriter writer = new BinaryWriter(stream);
@@ -68,8 +78,11 @@ namespace HearThePicture.Services
 				short s = (short)(ampl * (Math.Sin(t * freq * 2.0 * Math.PI) + Math.Sin(t * freq * concert * 2.0 * Math.PI)));
 				writer.Write(s);
 			}
+
 			writer.Close();
 			stream.Close();
+
+			return stream;
 		}
 	}
 }

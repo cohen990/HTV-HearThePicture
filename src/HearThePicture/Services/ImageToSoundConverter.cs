@@ -18,7 +18,7 @@ namespace HearThePicture.Services
 			var wavService = new WavService();
 
 			string fileName = "red.wav";
-			wavService.Write(frequency, fileName);
+			wavService.Play(frequency);
 		}
 	}
 }

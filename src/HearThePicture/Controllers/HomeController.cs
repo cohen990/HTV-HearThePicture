@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using HearThePicture.Services;
 
 namespace HearThePicture.Controllers
@@ -13,7 +9,25 @@ namespace HearThePicture.Controllers
 		{
 			var converter = new ImageToSoundConverter();
 
-			converter.Convert("Assets/OneRedPixel.bmp");
+			converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\Blue.bmp");
+
+			return View();
+		}
+
+		public ActionResult Blue()
+		{
+			var converter = new ImageToSoundConverter();
+
+			converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\Blue.bmp");
+
+			return View();
+		}
+
+		public ActionResult Red()
+		{
+			var converter = new ImageToSoundConverter();
+
+			converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\SinglePixel.bmp");
 
 			return View();
 		}

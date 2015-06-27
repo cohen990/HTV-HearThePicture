@@ -33,16 +33,16 @@ namespace HearThePicture.Tests.Services
 		[Test]
 		public void WritesFile()
 		{
-			Wav.Write(220.0, FileName);
+			Wav.Create(220.0, FileName);
 
 			Assert.That(File.Exists(FileName), Is.True);
 		}
 
 		[Test]
-		[Ignore("Read Write permission confliction")]
+		[Ignore("Read Create permission confliction")]
 		public void WritesFileThatCanBePlayed()
 		{
-			Wav.Write(220.0, FileName);
+			Wav.Create(220.0, FileName);
 
 			var stream = File.Open(FileName, FileMode.Open, FileAccess.Read, FileShare.Delete);
 
@@ -52,10 +52,10 @@ namespace HearThePicture.Tests.Services
 		}
 
 		[Test]
-		[Ignore("Read Write permission confliction")]
+		[Ignore("Read Create permission confliction")]
 		public void WritesFileWithDifferentFrequencies()
 		{
-			Wav.Write(680.0, FileName);
+			Wav.Create(680.0, FileName);
 
 			var stream = File.Open(FileName, FileMode.Open, FileAccess.Read, FileShare.Delete);
 
