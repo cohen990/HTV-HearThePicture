@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Media;
 
 namespace HearThePicture.Services
@@ -8,14 +10,24 @@ namespace HearThePicture.Services
 	{
 		public void Play(double frequency)
 		{
-			var stream = File.Open("C:\\Program Files (x86)\\IIS Express\\filename.wav", FileMode.Open);
+			var outFileName = Guid.NewGuid().ToString("N").Substring(5);
+
+			var frequencies = new List<double> {frequency};
+
+			Create(frequencies, outFileName + ".wav");
+
+			var filePath = string.Format("C:\\Program Files (x86)\\IIS Express\\{0}.wav", outFileName);
+
+			var stream = File.Open(filePath, FileMode.Open);
+
+			stream.Seek(0,0);
 
 			var player = new SoundPlayer(stream);
 
 			player.Play();
 		}
 
-		public FileStream Create(double frequency, string fileName)
+		public FileStream Create(List<double> frequencies, string fileName)
 		{
 			FileStream stream = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
 			BinaryWriter writer = new BinaryWriter(stream);
@@ -48,7 +60,7 @@ namespace HearThePicture.Services
 			writer.Write(bitsPerSample);
 			writer.Write(data);
 			writer.Write(dataChunkSize);
-			double aNatural = frequency;
+			double aNatural = frequencies.First();
 			double ampl = 10000;
 			double perfect = 1.5;
 			double concert = 1.498307077;

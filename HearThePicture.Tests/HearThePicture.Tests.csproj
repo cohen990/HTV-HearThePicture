@@ -89,7 +89,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BitmapLoaderTests.cs" />
-    <Compile Include="Services\NoiseMakerTests.cs" />
     <Compile Include="Services\PixelAnalyzerTests.cs" />
     <Compile Include="Services\WavServiceTests.cs" />
   </ItemGroup>

@@ -31,5 +31,14 @@ namespace HearThePicture.Controllers
 
 			return View();
 		}
+
+		public ActionResult TwoxOneGreen()
+		{
+			var converter = new ImageToSoundConverter();
+
+			converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\2x1Green.bmp");
+
+			return View();
+		}
 	}
 }
