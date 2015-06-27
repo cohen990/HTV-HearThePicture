@@ -3,6 +3,20 @@
 @{
 	ViewBag.Title = "Home Page";
 }
+
+<h2>@ViewBag.Title</h2>
+
 <div class="row">
-	<img src="@Model"></img>
+	<ul>
+		<li>@Html.ActionLink("Red", "Red")</li>
+		<li>@Html.ActionLink("Blue", "Blue")</li>
+		<li>@Html.ActionLink("Two Green Pixels", "TwoxOneGreen")</li>
+		<li>@Html.ActionLink("Four Purple Pixels", "TwoxTwoPurple")</li>
+		<li>@Html.ActionLink("Windows Logo", "Windows")</li>
+		<li>@Html.ActionLink("Whitenoise Sample", "Whitenoise")</li>
+		<li>@Html.ActionLink("Google Dreams", "Psychadelic")</li>
+		<li>@Html.ActionLink("The Scream of Nature - Munch", "Scream")</li>
+		<li>@Html.ActionLink("The Starry Night - Van Gogh", "StarryNight")</li>
+		<li>@Html.ActionLink("A Sunflower - ?", "Sunflower")</li>
+	</ul>
 </div>
