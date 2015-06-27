@@ -1,10 +1,11 @@
 ﻿using System.Drawing;
+using HearThePicture.Models;
 using HearThePicture.Services;
 using NUnit.Framework;
 
 namespace HearThePicture.Tests.Services
 {
-	class PixelAnalyzerTests
+	internal class PixelAnalyzerTests
 	{
 		public PixelAnalyzer Analyzer { get; set; }
 
@@ -16,43 +17,67 @@ namespace HearThePicture.Tests.Services
 	}
 
 	[TestFixture]
-	class GetFrequencyTests : PixelAnalyzerTests
+	internal class GetFrequencyTests : PixelAnalyzerTests
 	{
 		[Test]
 		public void GivenColorWith0000_ReturnsFrequencyAround80()
 		{
-			var result = Analyzer.GetFrequency(Color.FromArgb(0, 0, 0, 0));
+			var result = Analyzer.GetTone(Color.FromArgb(0, 0, 0, 0));
 
-			Assert.That(result, Is.InRange(79, 81));
+			Assert.That(result.Frequency, Is.InRange(79, 81));
+		}
+
+		[Test]
+		public void GivenColorWith0000_ReturnsDurationAroundAQuarter()
+		{
+			var result = Analyzer.GetTone(Color.FromArgb(0, 0, 0, 0));
+
+			Assert.That(result.Duration, Is.EqualTo(0.25));
 		}
 
 		[Test]
 		public void GivenRed_ReturnsFrequencyAround80()
 		{
-			var result = Analyzer.GetFrequency(Color.Red);
+			var result = Analyzer.GetTone(Color.Red);
 
-			Assert.That(result, Is.InRange(79, 81));
+			Assert.That(result.Frequency, Is.InRange(79, 81));
+		}
+
+		[Test]
+		public void GivenRed_ReturnsDurationOf1()
+		{
+			var result = Analyzer.GetTone(Color.Red);
+
+			Assert.That(result.Duration, Is.EqualTo(1));
 		}
 
 		[Test]
 		public void GivenGreen_ReturnsFrequencyAround197()
 		{
-			var result = Analyzer.GetFrequency(Color.FromArgb(255, 0, 255, 0));
+			var result = Analyzer.GetTone(Color.FromArgb(255, 0, 255, 0));
 
-			Assert.That(result, Is.InRange(197, 198));
+			Assert.That(result.Frequency, Is.InRange(197, 198));
 		}
 
 		[Test]
 		public void GivenTeal_ReturnsFrequencyAround309()
 		{
-			var result = Analyzer.GetFrequency(Color.FromArgb(255, 0, 250, 250));
+			var result = Analyzer.GetTone(Color.FromArgb(255, 0, 250, 250));
 
-			Assert.That(result, Is.InRange(308, 310));
+			Assert.That(result.Frequency, Is.InRange(308, 310));
+		}
+
+		[Test]
+		public void GivenTeal_ReturnsDurationAroundPoint97()
+		{
+			var result = Analyzer.GetTone(Color.FromArgb(255, 0, 250, 250));
+
+			Assert.That(result.Duration, Is.InRange(0.97, 0.98));
 		}
 	}
 
 	[TestFixture]
-	class ConvertToFrequencyTests : PixelAnalyzerTests
+	internal class ConvertToFrequencyTests : PixelAnalyzerTests
 	{
 		[Test]
 		public void Given0_ReturnsAbout80()
@@ -66,7 +91,7 @@ namespace HearThePicture.Tests.Services
 		public void Given360_ReturnsAbout1200()
 		{
 			var result = Analyzer.ConvertToFrequency(360);
-			
+
 			Assert.That(result, Is.InRange(1199, 1201));
 		}
 
@@ -74,7 +99,7 @@ namespace HearThePicture.Tests.Services
 		public void Given180_ReturnsAbout309()
 		{
 			var result = Analyzer.ConvertToFrequency(180);
-			
+
 			Assert.That(result, Is.InRange(308, 310));
 		}
 
@@ -86,4 +111,33 @@ namespace HearThePicture.Tests.Services
 			Assert.That(result, Is.InRange(608, 610));
 		}
 	}
+
+	[TestFixture]
+	class ConvertToDurationTests : PixelAnalyzerTests
+	{
+		[Test]
+		public void Given0_ReturnsDurationMinimum()
+		{
+			var result = Analyzer.ConvertToDuration(0);
+
+			Assert.That(result, Is.EqualTo(Tone.MinimumDuration));
+		}
+
+		[Test]
+		public void Given1_ReturnsDurationMax()
+		{
+			var result = Analyzer.ConvertToDuration(1);
+
+			Assert.That(result, Is.EqualTo(Tone.MaximumDuration));
+		}
+
+		[Test]
+		public void GivenPoint5_ReturnsDuration2Point5()
+		{
+			var result = Analyzer.ConvertToDuration((float)0.5);
+
+			Assert.That(result, Is.EqualTo(1));
+		}
+	}
+
 }

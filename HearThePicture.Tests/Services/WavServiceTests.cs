@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Media;
+using HearThePicture.Models;
 using HearThePicture.Services;
 using NUnit.Framework;
 
@@ -25,13 +26,13 @@ namespace HearThePicture.Tests.Services
 	}
 
 	[TestFixture]
-	class SaveTests : WavServiceTests
+	class CreateTests : WavServiceTests
 	{
 		[Test]
 		public void WritesFile()
 		{
-			var frequencies = new List<double> { 220.0 };
-			Wav.Create(frequencies, FileName);
+			var tones = new List<Tone> {new Tone{ Frequency = 220.0 } };
+			Wav.Create(tones, FileName);
 
 			Assert.That(File.Exists(FileName), Is.True);
 		}
@@ -40,8 +41,9 @@ namespace HearThePicture.Tests.Services
 		[Ignore("Read Create permission confliction")]
 		public void WritesFileThatCanBePlayed()
 		{
-			var frequencies = new List<double> { 220.0 };
-			Wav.Create(frequencies, FileName);
+			var tones = new List<Tone> { new Tone { Frequency = 220.0 } };
+
+			Wav.Create(tones, FileName);
 
 			var stream = File.Open(FileName, FileMode.Open, FileAccess.Read, FileShare.Delete);
 
@@ -54,8 +56,9 @@ namespace HearThePicture.Tests.Services
 		[Ignore("Read Create permission confliction")]
 		public void WritesFileWithDifferentFrequencies()
 		{
-			var frequencies = new List<double> { 680.0 };
-			Wav.Create(frequencies, FileName);
+			var tones = new List<Tone> { new Tone { Frequency = 680.0 } };
+
+			Wav.Create(tones, FileName);
 
 			var stream = File.Open(FileName, FileMode.Open, FileAccess.Read, FileShare.Delete);
 
@@ -68,9 +71,9 @@ namespace HearThePicture.Tests.Services
 		[Ignore("Read Create permission confliction")]
 		public void WritesFileWhenGivenMultipleFrequencies()
 		{
-			var frequencies = new List<double>{680.0, 230.0};
+			var tones = new List<Tone> { new Tone { Frequency = 680.0 }, new Tone { Frequency = 230.0 } };
 
-			Wav.Create(frequencies, FileName);
+			Wav.Create(tones, FileName);
 
 			var stream = File.Open(FileName, FileMode.Open, FileAccess.Read, FileShare.Delete);
 
