@@ -6,7 +6,7 @@ namespace HearThePicture.Services
 {
 	public class ImageToSoundConverter
 	{
-		public void Convert(string imageFilePath, int samplesPerPixel = 88200)
+		public void Convert(string imageFilePath, int samplesPerPixel = 88200, bool synth = true)
 		{
 			var loader = new BitmapLoader();
 			var file = loader.Load(imageFilePath);
@@ -19,7 +19,7 @@ namespace HearThePicture.Services
 
 			var wavService = new WavService();
 
-			wavService.Play(tones, samplesPerPixel);
+			wavService.Play(tones, samplesPerPixel, synth);
 		}
 	}
 }

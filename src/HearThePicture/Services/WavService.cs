@@ -9,13 +9,15 @@ namespace HearThePicture.Services
 {
 	public class WavService
 	{
-		public void Play(List<Tone> tones, int samplesPerPixel)
+		private bool UseSynth { get; set; }
+
+		public void Play(List<Tone> tones, int samplesPerPixel, bool synth = true)
 		{
 			var outFileName = Guid.NewGuid().ToString("N").Substring(5);
 
 			var filePath = string.Format("C:\\Dev\\Wavs\\{0}.wav", outFileName);
 
-			Create(tones, filePath, samplesPerPixel);
+			Create(tones, filePath, samplesPerPixel, synth);
 
 			var stream = File.Open(filePath, FileMode.Open);
 
@@ -26,8 +28,9 @@ namespace HearThePicture.Services
 			player.Play();
 		}
 
-		public FileStream Create(List<Tone> tones, string filePath, int baseSamplesPerPixel = 88200)
+		public FileStream Create(List<Tone> tones, string filePath, int baseSamplesPerPixel = 88200, bool synth = true)
 		{
+			UseSynth = synth;
 			var samples = GetTotalSamples(baseSamplesPerPixel, tones);
 
 			FileStream stream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
@@ -65,7 +68,7 @@ namespace HearThePicture.Services
 			for (int i = 0; i < tones.Count; i++)
 			{
 				var samplesForThisTone = baseSamplesPerPixel*tones[i].Duration;
-				var amplitude = baseAmplitude*tones[i].Volume;
+				var amplitudeForThisTone = baseAmplitude*tones[i].Volume;
 
 				var fadePeriod = samplesForThisTone/15;
 
@@ -73,31 +76,49 @@ namespace HearThePicture.Services
 
 				for (; j < fadePeriod; j++)
 				{
-					var fadeAmplitude = j / fadePeriod * amplitude;
+					var fadeAmplitude = j / fadePeriod * amplitudeForThisTone;
 					double t = (double)j / (double)samplesPerSecond;
-					short s = (short)(fadeAmplitude * (Math.Sin(t * tones[i].Frequency * 2.0 * Math.PI)));
-					writer.Write(s);
+					short waveForm = GetWaveform(fadeAmplitude, t, tones[i].Frequency);
+					writer.Write(waveForm);
 				}
 
 				for (; j <= samplesForThisTone - fadePeriod; j++)
 				{
 					double t = (double)j / (double)samplesPerSecond;
-					short s = (short)(amplitude * (Math.Sin(t * tones[i].Frequency * 2.0 * Math.PI)));
-					writer.Write(s);
+					short waveForm = GetWaveform(amplitudeForThisTone, t, tones[i].Frequency);
+					writer.Write(waveForm);
 				}
 
 				for (; j < samplesForThisTone; j++)
 				{
-					var fadeAmplitude = ((samplesForThisTone - j) / fadePeriod) * amplitude;
+					double fadeAmplitude = ((samplesForThisTone - j) / fadePeriod) * amplitudeForThisTone;
 					double t = (double)j / (double)samplesPerSecond;
-					short s = (short)(fadeAmplitude * (Math.Sin(t * tones[i].Frequency * 2.0 * Math.PI)));
-					writer.Write(s);
+					short waveForm = GetWaveform(fadeAmplitude, t, tones[i].Frequency);
+					writer.Write(waveForm);
 				}
 			}
 			writer.Close();
 			stream.Close();
 
 			return stream;
+		}
+
+		private short GetWaveform(double amplitude, double timePosition, double frequency)
+		{
+			short baseNote = (short)(amplitude * (Math.Sin(timePosition * frequency * 2.0 * Math.PI)));
+
+			if (!UseSynth)
+				return baseNote;
+
+			short halfTave = (short)(amplitude / 100 * (Math.Sin(timePosition * (frequency * 0.5) * 2.0 * Math.PI)));
+
+			short octave = (short)(amplitude / 10 * (Math.Sin(timePosition * (frequency * 2.0) * 2.0 * Math.PI)));
+
+			short secondTave = (short)(amplitude / 100 * (Math.Sin(timePosition * (frequency * 2.0 * 2.0) * 2.0 * Math.PI)));
+
+			short thirdTave = (short)(amplitude / 100 * (Math.Sin(timePosition * (frequency * 2.0 * 2.0 * 2.0) * 2.0 * Math.PI)));
+
+			return (short)(baseNote + halfTave + octave + secondTave + thirdTave);
 		}
 
 		private int GetTotalSamples(int baseSamplesPerPixel, List<Tone> tones)

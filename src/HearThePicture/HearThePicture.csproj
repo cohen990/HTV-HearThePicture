@@ -272,6 +272,7 @@
     <Content Include="Views\Home\Gradient.cshtml" />
     <Content Include="Views\Home\DogFace.cshtml" />
     <Content Include="Views\Home\Pillars.cshtml" />
+    <Content Include="Views\Home\StarryNightNoSynth.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

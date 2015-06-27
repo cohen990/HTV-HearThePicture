@@ -112,5 +112,35 @@ namespace HearThePicture.Tests.Services
 
 			Assert.DoesNotThrow(() => player.Play());
 		}
+
+		[Test]
+		[Ignore("Read Create permission confliction")]
+		public void SetsOctaves()
+		{
+			var tones = new List<Tone> { new Tone { Frequency = 680.0, Duration = 1, Volume = 0.5 }, new Tone { Frequency = 230, Duration = 1, Volume = 1 } };
+
+			Wav.Create(tones, FileName, synth: true);
+
+			var stream = File.Open(FileName, FileMode.Open, FileAccess.Read, FileShare.Delete);
+
+			var player = new SoundPlayer(stream);
+
+			Assert.DoesNotThrow(() => player.Play());
+		}
+
+		[Test]
+		[Ignore("Read Create permission confliction")]
+		public void WithoutOctaves()
+		{
+			var tones = new List<Tone> { new Tone { Frequency = 680.0, Duration = 1, Volume = 0.5 }, new Tone { Frequency = 230, Duration = 1, Volume = 1 } };
+
+			Wav.Create(tones, FileName, synth: false);
+
+			var stream = File.Open(FileName, FileMode.Open, FileAccess.Read, FileShare.Delete);
+
+			var player = new SoundPlayer(stream);
+
+			Assert.DoesNotThrow(() => player.Play());
+		}
 	}
 }
