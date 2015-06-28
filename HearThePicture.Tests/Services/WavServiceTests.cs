@@ -115,9 +115,20 @@ namespace HearThePicture.Tests.Services
 
 		[Test]
 		[Ignore("Read Create permission confliction")]
-		public void SetsOctaves()
+		public void AppliesSynth()
 		{
-			var tones = new List<Tone> { new Tone { Frequency = 680.0, Duration = 1, Volume = 0.5 }, new Tone { Frequency = 230, Duration = 1, Volume = 1 } };
+			var tones = new List<Tone>
+			{
+				new Tone { Frequency = 680.0, Duration = 1, Volume = 0.5 },
+				new Tone { Frequency = 230, Duration = 1, Volume = 1 },
+				new Tone { Frequency = 250, Duration = 0.1, Volume = 1 },
+				new Tone { Frequency = 290, Duration = 0.1, Volume = 1 },
+				new Tone { Frequency = 400, Duration = 0.1, Volume = 1 },
+				new Tone { Frequency = 500, Duration = 0.1, Volume = 1 },
+				new Tone { Frequency = 600, Duration = 0.1, Volume = 1 },
+				new Tone { Frequency = 700, Duration = 0.1, Volume = 1 },
+				new Tone { Frequency = 900, Duration = 0.25, Volume = 1 },
+			};
 
 			Wav.Create(tones, FileName, synth: true);
 
@@ -132,7 +143,18 @@ namespace HearThePicture.Tests.Services
 		[Ignore("Read Create permission confliction")]
 		public void WithoutOctaves()
 		{
-			var tones = new List<Tone> { new Tone { Frequency = 680.0, Duration = 1, Volume = 0.5 }, new Tone { Frequency = 230, Duration = 1, Volume = 1 } };
+			var tones = new List<Tone>
+			{
+				new Tone { Frequency = 680.0, Duration = 1, Volume = 0.5 },
+				new Tone { Frequency = 230, Duration = 1, Volume = 1 },
+				new Tone { Frequency = 250, Duration = 0.1, Volume = 1 },
+				new Tone { Frequency = 290, Duration = 0.1, Volume = 1 },
+				new Tone { Frequency = 400, Duration = 0.1, Volume = 1 },
+				new Tone { Frequency = 500, Duration = 0.1, Volume = 1 },
+				new Tone { Frequency = 600, Duration = 0.1, Volume = 1 },
+				new Tone { Frequency = 700, Duration = 0.1, Volume = 1 },
+				new Tone { Frequency = 900, Duration = 0.25, Volume = 1 },
+			};
 
 			Wav.Create(tones, FileName, synth: false);
 

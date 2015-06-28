@@ -110,15 +110,43 @@ namespace HearThePicture.Services
 			if (!UseSynth)
 				return baseNote;
 
-			short halfTave = (short)(amplitude / 100 * (Math.Sin(timePosition * (frequency * 0.5) * 2.0 * Math.PI)));
+			var note = ApplyOctaves(amplitude, timePosition, frequency, baseNote);
 
-			short octave = (short)(amplitude / 10 * (Math.Sin(timePosition * (frequency * 2.0) * 2.0 * Math.PI)));
+			note = ApplySquareWave(amplitude, timePosition, frequency, note);
 
-			short secondTave = (short)(amplitude / 100 * (Math.Sin(timePosition * (frequency * 2.0 * 2.0) * 2.0 * Math.PI)));
+			note = ApplySawtoothWave(amplitude, timePosition, frequency, note);
 
-			short thirdTave = (short)(amplitude / 100 * (Math.Sin(timePosition * (frequency * 2.0 * 2.0 * 2.0) * 2.0 * Math.PI)));
+			return note;
+		}
 
-			return (short)(baseNote + halfTave + octave + secondTave + thirdTave);
+		private short ApplySawtoothWave(double amplitude, double timePosition, double frequency, short baseNote)
+		{
+			var sawTooth = Math.Abs((timePosition%1/frequency) - (2/frequency))*(amplitude/frequency);
+
+			var note = baseNote + sawTooth;
+
+			return (short)note;
+		}
+
+		private short ApplySquareWave(double amplitude, double timePosition, double frequency, short baseNote)
+		{
+			var squareWave = (timePosition%1/frequency) < 2/frequency ? amplitude : 0;
+
+			var note = baseNote + (short)squareWave;
+			return (short)note;
+		}
+
+		private short ApplyOctaves(double amplitude, double timePosition, double baseFrequency, short baseNote)
+		{
+			short halfTave = (short)(amplitude / 1000 * (Math.Sin(timePosition * (baseFrequency * 0.5) * 2.0 * Math.PI)));
+
+			short octave = (short)(amplitude / 10 * (Math.Sin(timePosition * (baseFrequency * 2.0) * 2.0 * Math.PI)));
+
+			short secondTave = (short)(amplitude / 100 * (Math.Sin(timePosition * (baseFrequency * 2.0 * 2.0) * 2.0 * Math.PI)));
+
+			short thirdTave = (short)(amplitude / 1000 * (Math.Sin(timePosition * (baseFrequency * 2.0 * 2.0 * 2.0) * 2.0 * Math.PI)));
+
+			return (short) (baseNote + halfTave + octave + secondTave + thirdTave);
 		}
 
 		private int GetTotalSamples(int baseSamplesPerPixel, List<Tone> tones)
