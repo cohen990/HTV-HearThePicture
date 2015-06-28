@@ -31,6 +31,13 @@ namespace HearThePicture.Controllers
 			return View();
 		}
 
+		public ActionResult RedNoSynth()
+		{
+			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\SinglePixel.bmp", synth: false);
+
+			return View("Red");
+		}
+
 		public ActionResult TwoxOneGreen()
 		{
 			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\2x1Green.bmp");
@@ -96,7 +103,7 @@ namespace HearThePicture.Controllers
 
 		public ActionResult StarryNightNoSynth()
 		{
-			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\starrynightsmall.jpg", 11025, false);
+			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\starrynight.jpg", 11025, false);
 
 			return View();
 		}
