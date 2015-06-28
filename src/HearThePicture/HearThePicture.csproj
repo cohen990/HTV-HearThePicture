@@ -273,6 +273,7 @@
     <Content Include="Views\Home\DogFace.cshtml" />
     <Content Include="Views\Home\Pillars.cshtml" />
     <Content Include="Views\Home\StarryNightNoSynth.cshtml" />
+    <Content Include="Views\Home\realstar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
