@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Media;
@@ -10,6 +11,12 @@ namespace HearThePicture.Services
 	public class WavService
 	{
 		private bool UseSynth { get; set; }
+		private bool Break { get; set; } // used for debugging
+
+		public WavService()
+		{
+			Break = true;
+		}
 
 		public void Play(List<Tone> tones, int samplesPerPixel, bool synth = true)
 		{
@@ -121,7 +128,11 @@ namespace HearThePicture.Services
 
 		private short ApplySawtoothWave(double amplitude, double timePosition, double frequency, short baseNote)
 		{
-			var sawTooth = Math.Abs((timePosition%1/frequency) - (2/frequency))*(amplitude/frequency);
+			var weight = 2;
+
+			var initialValue = ((Math.Abs((timePosition%(1/frequency))) - (1/(2*frequency)))*amplitude);
+
+			var sawTooth =  (initialValue - initialValue/2) * weight;
 
 			var note = baseNote + sawTooth;
 
@@ -130,7 +141,9 @@ namespace HearThePicture.Services
 
 		private short ApplySquareWave(double amplitude, double timePosition, double frequency, short baseNote)
 		{
-			var squareWave = (timePosition%1/frequency) < 2/frequency ? amplitude : 0;
+			var weight = 0.025;
+
+			var squareWave = (timePosition % (1 / frequency)) < 1 / (2*frequency)? amplitude * weight : -amplitude * weight;
 
 			var note = baseNote + (short)squareWave;
 			return (short)note;

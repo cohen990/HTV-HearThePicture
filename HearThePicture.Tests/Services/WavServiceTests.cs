@@ -128,6 +128,7 @@ namespace HearThePicture.Tests.Services
 				new Tone { Frequency = 600, Duration = 0.1, Volume = 1 },
 				new Tone { Frequency = 700, Duration = 0.1, Volume = 1 },
 				new Tone { Frequency = 900, Duration = 0.25, Volume = 1 },
+				new Tone { Frequency = 1200, Duration = 0.25, Volume = 1 },
 			};
 
 			Wav.Create(tones, FileName, synth: true);
@@ -154,6 +155,7 @@ namespace HearThePicture.Tests.Services
 				new Tone { Frequency = 600, Duration = 0.1, Volume = 1 },
 				new Tone { Frequency = 700, Duration = 0.1, Volume = 1 },
 				new Tone { Frequency = 900, Duration = 0.25, Volume = 1 },
+				new Tone { Frequency = 1200, Duration = 0.25, Volume = 1 },
 			};
 
 			Wav.Create(tones, FileName, synth: false);
