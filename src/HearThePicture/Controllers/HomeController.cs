@@ -61,7 +61,7 @@ namespace HearThePicture.Controllers
 
 		public ActionResult Gradient()
 		{
-			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\gradient.bmp", 2756);
+			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\gradient.bmp", 689);
 
 			return View();
 		}
