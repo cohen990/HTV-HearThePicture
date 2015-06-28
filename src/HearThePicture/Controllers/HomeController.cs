@@ -121,5 +121,12 @@ namespace HearThePicture.Controllers
 
 			return View();
 		}
+
+		public ActionResult RealStar()
+		{
+			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\realstar.png", 11025);
+
+			return View();
+		}
 	}
 }
