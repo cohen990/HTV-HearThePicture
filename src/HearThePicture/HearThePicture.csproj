@@ -302,8 +302,8 @@
     <Content Include="Views\Home\Pillars.cshtml" />
     <Content Include="Views\Home\StarryNightNoSynth.cshtml" />
     <Content Include="Views\Home\realstar.cshtml" />
-    <None Include="Views\Upload\Index.cshtml" />
-    <None Include="Views\Upload\Play.cshtml" />
+    <Content Include="Views\Upload\Index.cshtml" />
+    <Content Include="Views\Upload\Play.cshtml" />
     <None Include="Views\Upload\Success.cshtml" />
   </ItemGroup>
   <ItemGroup>
