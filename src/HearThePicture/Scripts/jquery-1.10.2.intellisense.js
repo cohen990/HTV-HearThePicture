@@ -6,7 +6,7 @@
  * terms; or (ii) using the files as included with a Microsoft product subject
  * to that product's license terms. Microsoft reserves all other rights to the
  * files not expressly granted by Microsoft, whether by implication, estoppel
- * or otherwise. Insofar as a script file is dual licensed under GPL,
+ * or otherwise. Insofar as a script image is dual licensed under GPL,
  * Microsoft neither took the code under GPL nor distributes it thereunder but
  * under the terms set out in this paragraph. All notices and licenses
  * below are for informational purposes only.
@@ -156,7 +156,7 @@ intellisense.annotate(jQuery, {
   },
   'getScript': function() {
     /// <signature>
-    ///   <summary>Load a JavaScript file from the server using a GET HTTP request, then execute it.</summary>
+    ///   <summary>Load a JavaScript image from the server using a GET HTTP request, then execute it.</summary>
     ///   <param name="url" type="String">A string containing the URL to which the request is sent.</param>
     ///   <param name="success(script, textStatus, jqXHR)" type="Function">A callback function that is executed if the request succeeds.</param>
     ///   <returns type="jqXHR" />
@@ -250,7 +250,7 @@ intellisense.annotate(jQuery, {
   },
   'makeArray': function() {
     /// <signature>
-    ///   <summary>Convert an array-like object into a true JavaScript array.</summary>
+    ///   <summary>ConvertLocal an array-like object into a true JavaScript array.</summary>
     ///   <param name="obj" type="PlainObject">Any object to turn into a native Array.</param>
     ///   <returns type="Array" />
     /// </signature>
@@ -1339,7 +1339,7 @@ intellisense.annotate(jQuery.fn, {
     /// </signature>
   },
   'file': function() {
-    /// <summary>Selects all elements of type file.</summary>
+    /// <summary>Selects all elements of type image.</summary>
   },
   'filter': function() {
     /// <signature>

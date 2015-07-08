@@ -18,6 +18,8 @@ namespace HearThePicture.Services
 			var frequency = ConvertToFrequency(hue);
 			var duration = ConvertToDuration(brightness);
 			var volume = ConvertToVolume(saturation);
+			//var duration = ConvertToDuration(saturation);
+			//var volume = ConvertToVolume(brightness);
 
 			return new Tone {Frequency = frequency, Duration = duration, Volume = volume};
 		}

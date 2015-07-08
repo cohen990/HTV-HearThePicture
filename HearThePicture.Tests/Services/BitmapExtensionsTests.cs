@@ -53,6 +53,7 @@ namespace HearThePicture.Tests.Services
 			Assert.That(result.Height, Is.EqualTo(1));
 		}
 
+		[Ignore("Unfinished")]
 		[Test]
 		public void Given2x2PixelBitmap_ReturnsAverage()
 		{

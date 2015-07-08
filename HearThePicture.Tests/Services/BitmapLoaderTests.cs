@@ -1,9 +1,11 @@
 ﻿using System;
-using System.IO;
-using NUnit.Framework;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Web;
 using HearThePicture.Services;
+using Moq;
+using NUnit.Framework;
 
 namespace HearThePicture.Tests.Services
 {
@@ -120,6 +122,29 @@ namespace HearThePicture.Tests.Services
 			var result = Loader.GetPixels(image);
 
 			Assert.That(result.Count, Is.EqualTo(4));
+		}
+	}
+
+	class GetStreamTests : BitmapLoaderTests
+	{
+		[Test]
+		public void GivenNull_ThrowsException()
+		{
+			Assert.Throws<ArgumentNullException>(() => Loader.GetStream(null));
+		}
+
+		[Test]
+		public void GivenFile_ReturnsStream()
+		{
+			FileStream fileStream = File.Open("Assets/2x2Purple.bmp", FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+
+			var file = new Mock<HttpPostedFileBase>();
+
+			file.SetupGet(x => x.InputStream).Returns(fileStream);
+			
+			var result = Loader.GetStream(file.Object);
+
+			Assert.That(result, Is.Not.Null);
 		}
 	}
 }

@@ -1,0 +1,15 @@
+﻿@{
+	ViewBag.Title = "Upload an image.";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.ValidationSummary()
+
+@using(@Html.BeginForm("Index", "Upload", FormMethod.Post,
+                                      new { enctype = "multipart/form-data" }))
+{
+	<input name="image" type="file" accept="images/*" required/>
+	
+	<input type="submit" value="upload"/>
+}
