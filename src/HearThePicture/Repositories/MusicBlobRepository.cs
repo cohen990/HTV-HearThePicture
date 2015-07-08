@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.IO;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -46,18 +47,13 @@ namespace HearThePicture.Repositories
 			return stream;
 		}
 
-		public Stream Get(string blobReference)
+		public Uri GetUri(string blobReference)
 		{
 			var blob = Container.GetBlockBlobReference(blobReference);
-
 			blob.Properties.ContentType = "audio/wav";
 
 			blob.SetProperties();
-
-			Stream result = new MemoryStream();
-
-			blob.DownloadToStream(result);
-
+			var result = blob.Uri;
 			return result;
 		}
 	}

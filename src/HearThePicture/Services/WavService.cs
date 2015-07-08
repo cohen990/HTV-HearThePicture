@@ -36,19 +36,15 @@ namespace HearThePicture.Services
 			player.Play();
 		}
 
-		public void PlayBlob(List<Tone> tones, int samplesPerPixel, bool synth = true)
+		public Uri MakeBlob(List<Tone> tones, int samplesPerPixel, bool synth = true)
 		{
 			var fileId = Guid.NewGuid().ToString("N");
 
 			var reference = CreateBlob(tones, fileId, samplesPerPixel, synth);
 
-			var stream = _repo.Get(reference);
+			var uri = _repo.GetUri(reference);
 
-			stream.Seek(0, 0);
-
-			var player = new SoundPlayer(stream);
-
-			player.Play();
+			return uri;
 		}
 
 		public FileStream Create(List<Tone> tones, string filePath, int baseSamplesPerPixel = 88200, bool synth = true)
