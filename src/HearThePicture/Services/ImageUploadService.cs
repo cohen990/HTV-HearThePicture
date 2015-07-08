@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using HearThePicture.Repositories;
 
 namespace HearThePicture.Services
@@ -6,7 +7,7 @@ namespace HearThePicture.Services
 	class ImageUploadService
 	{
 		private readonly ImageBlobRepository _repo;
-		private ImageToSoundConverter _converter;
+		private readonly ImageToSoundConverter _converter;
 
 		public ImageUploadService()
 		{
@@ -14,11 +15,13 @@ namespace HearThePicture.Services
 			_repo = new ImageBlobRepository();
 		}
 
-		public void Upload(HttpPostedFileBase image)
+		public Uri Upload(HttpPostedFileBase image)
 		{
 			var imageId = _repo.Store(image.InputStream);
 
-			_converter.ConvertBlob(imageId, 11025);
+			var uri = _converter.ConvertBlob(imageId, 11025);
+
+			return uri;
 		}
 	}
 }
