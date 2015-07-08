@@ -34,7 +34,7 @@ namespace HearThePicture.Services
 			wavService.Play(tones, samplesPerPixel, synth);
 		}
 
-		public void ConvertBlob(string imageIdentifier, int samplesPerPixel = 88200, bool synth = true)
+		public Uri ConvertBlob(string imageIdentifier, int samplesPerPixel = 88200, bool synth = true)
 		{
 			var loader = new BitmapLoader();
 			Stream image = _repo.Get(imageIdentifier);
@@ -47,7 +47,9 @@ namespace HearThePicture.Services
 
 			var wavService = new WavService();
 
-			wavService.PlayBlob(tones, samplesPerPixel, synth);
+			var uri = wavService.MakeBlob(tones, samplesPerPixel, synth);
+
+			return uri;
 		}
 	}
 }
