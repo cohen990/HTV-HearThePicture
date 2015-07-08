@@ -1,17 +1,15 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using System.IO;
-using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace HearThePicture.Repositories
 {
-	public class ImageBlobRepository
+	public class MusicBlobRepository
 	{
 		private CloudBlobContainer Container { get; set; }
 
-		public ImageBlobRepository(bool autoInitialize = true)
+		public MusicBlobRepository(bool autoInitialize = true)
 		{
 			if (autoInitialize)
 			{
@@ -27,7 +25,7 @@ namespace HearThePicture.Repositories
 
 			CloudBlobClient client = account.CreateCloudBlobClient();
 
-			Container = client.GetContainerReference("images");
+			Container = client.GetContainerReference("musics");
 			Container.CreateIfNotExists();
 
 			Container.SetPermissions(
@@ -38,24 +36,27 @@ namespace HearThePicture.Repositories
 				});
 		}
 
-		public string Store(Stream stream)
+		public CloudBlobStream GetStream(string fileId, out string blobReference)
 		{
-			var blobName = Guid.NewGuid().ToString("N");
+			blobReference = fileId + ".wav";
+			var blob = Container.GetBlockBlobReference(blobReference);
 
-			CloudBlockBlob blob = Container.GetBlockBlobReference(blobName);
+			CloudBlobStream stream = blob.OpenWrite();
 
-			blob.UploadFromStream(stream);
-
-			return blobName;
+			return stream;
 		}
 
-		public Stream Get(string blobName)
+		public Stream Get(string blobReference)
 		{
-			var imageBlob = Container.GetBlockBlobReference(blobName);
+			var blob = Container.GetBlockBlobReference(blobReference);
+
+			blob.Properties.ContentType = "audio/wav";
+
+			blob.SetProperties();
 
 			Stream result = new MemoryStream();
 
-			imageBlob.DownloadToStream(result);
+			blob.DownloadToStream(result);
 
 			return result;
 		}

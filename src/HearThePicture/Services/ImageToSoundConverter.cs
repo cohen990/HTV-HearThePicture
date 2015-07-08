@@ -47,7 +47,7 @@ namespace HearThePicture.Services
 
 			var wavService = new WavService();
 
-			wavService.Play(tones, samplesPerPixel, synth);
+			wavService.PlayBlob(tones, samplesPerPixel, synth);
 		}
 	}
 }

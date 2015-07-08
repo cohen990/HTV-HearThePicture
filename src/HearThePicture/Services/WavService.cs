@@ -1,21 +1,22 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Media;
 using HearThePicture.Models;
+using HearThePicture.Repositories;
+using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace HearThePicture.Services
 {
 	public class WavService
 	{
+		private readonly MusicBlobRepository _repo;
 		private bool UseSynth { get; set; }
-		private bool Break { get; set; } // used for debugging
 
 		public WavService()
 		{
-			Break = true;
+			_repo = new MusicBlobRepository();
 		}
 
 		public void Play(List<Tone> tones, int samplesPerPixel, bool synth = true)
@@ -35,12 +36,48 @@ namespace HearThePicture.Services
 			player.Play();
 		}
 
+		public void PlayBlob(List<Tone> tones, int samplesPerPixel, bool synth = true)
+		{
+			var fileId = Guid.NewGuid().ToString("N");
+
+			var reference = CreateBlob(tones, fileId, samplesPerPixel, synth);
+
+			var stream = _repo.Get(reference);
+
+			stream.Seek(0, 0);
+
+			var player = new SoundPlayer(stream);
+
+			player.Play();
+		}
+
 		public FileStream Create(List<Tone> tones, string filePath, int baseSamplesPerPixel = 88200, bool synth = true)
 		{
 			UseSynth = synth;
 			var samples = GetTotalSamples(baseSamplesPerPixel, tones);
 
 			FileStream stream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
+			WriteWaves(tones, baseSamplesPerPixel, stream, samples);
+			stream.Close();
+
+			return stream;
+		}
+
+		public string CreateBlob(List<Tone> tones, string fileId, int baseSamplesPerPixel = 88200, bool synth = true)
+		{
+			UseSynth = synth;
+			var samples = GetTotalSamples(baseSamplesPerPixel, tones);
+
+			string blobReference;
+			CloudBlobStream stream = _repo.GetStream(fileId, out blobReference);
+			WriteWaves(tones, baseSamplesPerPixel, stream, samples);
+			stream.Close();
+
+			return blobReference;
+		}
+
+		private void WriteWaves(List<Tone> tones, int baseSamplesPerPixel, Stream stream, int samples)
+		{
 			BinaryWriter writer = new BinaryWriter(stream);
 			int RIFF = 0x46464952;
 			int WAVE = 0x45564157;
@@ -74,10 +111,10 @@ namespace HearThePicture.Services
 
 			for (int i = 0; i < tones.Count; i++)
 			{
-				var samplesForThisTone = baseSamplesPerPixel*tones[i].Duration;
-				var amplitudeForThisTone = baseAmplitude*tones[i].Volume;
+				var samplesForThisTone = baseSamplesPerPixel * tones[i].Duration;
+				var amplitudeForThisTone = baseAmplitude * tones[i].Volume;
 
-				var fadePeriod = samplesForThisTone/15;
+				var fadePeriod = samplesForThisTone / 15;
 
 				int j = 0;
 
@@ -105,9 +142,6 @@ namespace HearThePicture.Services
 				}
 			}
 			writer.Close();
-			stream.Close();
-
-			return stream;
 		}
 
 		private short GetWaveform(double amplitude, double timePosition, double frequency)
@@ -130,9 +164,9 @@ namespace HearThePicture.Services
 		{
 			var weight = 2;
 
-			var initialValue = ((Math.Abs((timePosition%(1/frequency))) - (1/(2*frequency)))*amplitude);
+			var initialValue = ((Math.Abs((timePosition % (1 / frequency))) - (1 / (2 * frequency))) * amplitude);
 
-			var sawTooth =  (initialValue - initialValue/2) * weight;
+			var sawTooth = (initialValue - initialValue / 2) * weight;
 
 			var note = baseNote + sawTooth;
 
@@ -143,7 +177,7 @@ namespace HearThePicture.Services
 		{
 			var weight = 0.025;
 
-			var squareWave = (timePosition % (1 / frequency)) < 1 / (2*frequency)? amplitude * weight : -amplitude * weight;
+			var squareWave = (timePosition % (1 / frequency)) < 1 / (2 * frequency) ? amplitude * weight : -amplitude * weight;
 
 			var note = baseNote + (short)squareWave;
 			return (short)note;
@@ -159,14 +193,14 @@ namespace HearThePicture.Services
 
 			short thirdTave = (short)(amplitude / 1000 * (Math.Sin(timePosition * (baseFrequency * 2.0 * 2.0 * 2.0) * 2.0 * Math.PI)));
 
-			return (short) (baseNote + halfTave + octave + secondTave + thirdTave);
+			return (short)(baseNote + halfTave + octave + secondTave + thirdTave);
 		}
 
 		private int GetTotalSamples(int baseSamplesPerPixel, List<Tone> tones)
 		{
-			double samples = tones.Sum(tone => tone.Duration*baseSamplesPerPixel);
+			double samples = tones.Sum(tone => tone.Duration * baseSamplesPerPixel);
 
-			return (int) Math.Ceiling(samples);
+			return (int)Math.Ceiling(samples);
 		}
 	}
 }
