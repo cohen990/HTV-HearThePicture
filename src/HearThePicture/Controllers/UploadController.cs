@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using HearThePicture.Services;
 
@@ -25,13 +26,18 @@ namespace HearThePicture.Controllers
 			if (!ModelState.IsValid)
 				return View();
 
-			_service.Upload(image);
-			return RedirectToAction("Success");
+			var uri = _service.Upload(image);
+			return RedirectToAction("Play", new { uri = uri });
 		}
 
 	    public ActionResult Success()
 	    {
 		    return View();
 	    }
-    }
+
+	    public ActionResult Play(Uri uri)
+	    {
+		    return View("Play", uri );
+	    }
+	}
 }
