@@ -192,6 +192,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Tone.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\MusicBlobRepository.cs" />
     <Compile Include="Repositories\ImageBlobRepository.cs" />
     <Compile Include="Services\BitmapLoader.cs" />
     <Compile Include="Services\ImageToSoundConverter.cs" />
