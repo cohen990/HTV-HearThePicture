@@ -19,119 +19,119 @@ namespace HearThePicture.Controllers
 
 		public ActionResult Blue()
 		{
-			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\Blue.bmp");
+			_converter.ConvertLocal("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\Blue.bmp");
 
 			return View();
 		}
 
 		public ActionResult Red()
 		{
-			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\SinglePixel.bmp");
+			_converter.ConvertLocal("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\SinglePixel.bmp");
 
 			return View();
 		}
 
 		public ActionResult RedNoSynth()
 		{
-			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\SinglePixel.bmp", synth: false);
+			_converter.ConvertLocal("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\SinglePixel.bmp", synth: false);
 
 			return View("Red");
 		}
 
 		public ActionResult TwoxOneGreen()
 		{
-			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\2x1Green.bmp");
+			_converter.ConvertLocal("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\2x1Green.bmp");
 
 			return View();
 		}
 
 		public ActionResult TwoxTwoPurple()
 		{
-			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\2x2Purple.bmp");
+			_converter.ConvertLocal("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\2x2Purple.bmp");
 
 			return View();
 		}
 
 		public ActionResult Windows()
 		{
-			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\windows.bmp");
+			_converter.ConvertLocal("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\windows.bmp");
 
 			return View();
 		}
 
 		public ActionResult Row()
 		{
-			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\row.png");
+			_converter.ConvertLocal("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\row.png");
 
 			return View();
 		}
 
 		public ActionResult Gradient()
 		{
-			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\gradient.bmp", 689);
+			_converter.ConvertLocal("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\gradient.bmp", 689);
 
 			return View();
 		}
 
 		public ActionResult Psychadelic()
 		{
-			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\psychadelic.bmp", 11025);
+			_converter.ConvertLocal("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\psychadelic.bmp", 11025);
 
 			return View();
 		}
 
 		public ActionResult Scream()
 		{
-			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\scream.jpg", 11025);
+			_converter.ConvertLocal("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\scream.jpg", 11025);
 
 			return View();
 		}
 
 		public ActionResult Whitenoise()
 		{
-			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\whitenoise.jpg", 11025);
+			_converter.ConvertLocal("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\whitenoise.jpg", 11025);
 
 			return View();
 		}
 
 		public ActionResult StarryNight()
 		{
-			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\starrynightsmall.jpg", 11025);
+			_converter.ConvertLocal("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\starrynightsmall.jpg", 11025);
 
 			return View();
 		}
 
 		public ActionResult StarryNightNoSynth()
 		{
-			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\starrynight.jpg", 11025, false);
+			_converter.ConvertLocal("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\starrynight.jpg", 11025, false);
 
 			return View();
 		}
 
 		public ActionResult Sunflower()
 		{
-			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\sunflower.jpg", 11025);
+			_converter.ConvertLocal("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\sunflower.jpg", 11025);
 
 			return View();
 		}
 
 		public ActionResult DogFace()
 		{
-			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\DogFace.png", 11025);
+			_converter.ConvertLocal("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\DogFace.png", 11025);
 
 			return View();
 		}
 
 		public ActionResult Pillars()
 		{
-			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\pillars-small.png", 11025);
+			_converter.ConvertLocal("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\pillars-small.png", 11025);
 
 			return View();
 		}
 
 		public ActionResult RealStar()
 		{
-			_converter.Convert("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\realstar.png", 11025);
+			_converter.ConvertLocal("E:\\Git\\HTV-HearThePicture\\src\\HearThePicture\\Assets\\realstar.png", 11025);
 
 			return View();
 		}

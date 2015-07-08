@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Web;
 
 namespace HearThePicture.Services
 {
@@ -19,7 +20,17 @@ namespace HearThePicture.Services
 			return file;
 		}
 
-		public Bitmap GetBitmap(FileStream stream)
+		public FileStream GetStream(HttpPostedFileBase file)
+		{
+			if(file == null)
+				throw new ArgumentNullException("file");
+
+			var stream = file.InputStream as FileStream;
+
+			return stream;
+		}
+
+		public Bitmap GetBitmap(Stream stream)
 		{
 			if (stream == null)
 				return null;
