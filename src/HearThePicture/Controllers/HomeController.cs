@@ -14,7 +14,7 @@ namespace HearThePicture.Controllers
 
 		public ActionResult Index()
 		{
-			return View();
+			return RedirectToActionPermanent("Index", "Upload");
 		}
 
 		public ActionResult Blue()
