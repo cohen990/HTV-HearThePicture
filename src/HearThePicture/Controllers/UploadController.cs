@@ -39,5 +39,11 @@ namespace HearThePicture.Controllers
 	    {
 		    return View("Play", uri );
 	    }
+
+        [HttpGet]
+        public ActionResult Tsu()
+        {
+            return RedirectPermanent("http://bit.ly/1PB7Wls");
+        }
 	}
 }
