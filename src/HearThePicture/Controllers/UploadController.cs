@@ -43,7 +43,7 @@ namespace HearThePicture.Controllers
         [HttpGet]
         public ActionResult Tsu()
         {
-            return RedirectPermanent("http://bit.ly/1PB7Wls");
+            return View();
         }
 	}
 }
