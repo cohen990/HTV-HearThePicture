@@ -201,7 +201,6 @@
     <Compile Include="Services\ImageUploadService.cs" />
     <Compile Include="Services\WavService.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="error.html" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\2x1green.bmp">
@@ -252,6 +251,9 @@
     </Content>
     <Content Include="Assets\windows.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="error.html" >
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
